@@ -198,8 +198,8 @@ del msbuild*.log
 
 if %build_arm64% == 1 (
 
-  msbuild.exe weasel.sln %build_option% /p:Configuration=%build_config% /p:Platform="ARM" /fl6
-  if errorlevel 1 goto error
+  rem msbuild.exe weasel.sln %build_option% /p:Configuration=%build_config% /p:Platform="ARM" /fl6
+  rem if errorlevel 1 goto error
   msbuild.exe weasel.sln %build_option% /p:Configuration=%build_config% /p:Platform="ARM64" /fl5
   if errorlevel 1 goto error
 )
@@ -276,8 +276,8 @@ rem build boost
   if errorlevel 1 goto error
   
   if %build_arm64% == 1 (
-    b2 %BJAM_OPTIONS_ARM32% stage %BOOST_COMPILED_LIBS%
-    if errorlevel 1 goto error
+    rem b2 %BJAM_OPTIONS_ARM32% stage %BOOST_COMPILED_LIBS%
+    rem if errorlevel 1 goto error
     b2 %BJAM_OPTIONS_ARM64% stage %BOOST_COMPILED_LIBS%
     if errorlevel 1 goto error
   )

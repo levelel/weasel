@@ -52,6 +52,7 @@
     <CharacterSet>Unicode</CharacterSet>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <PlatformToolset>$(PLATFORM_TOOLSET)</PlatformToolset>
+    <UseArm64EC>true</UseArm64EC>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
@@ -62,6 +63,7 @@
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <CharacterSet>Unicode</CharacterSet>
     <PlatformToolset>$(PLATFORM_TOOLSET)</PlatformToolset>
+    <UseArm64EC>true</UseArm64EC>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
@@ -116,7 +118,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)output\</OutDir>
-    <TargetName>weasel</TargetName>
+    <TargetName>WeaselTSF</TargetName>
     <IntDir>$(SolutionDir)msbuild\$(Configuration)\$(Platform)\$(ProjectName)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">
@@ -128,7 +130,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(SolutionDir)output\</OutDir>
-    <TargetName>weasel</TargetName>
+    <TargetName>WeaselTSF</TargetName>
     <IntDir>$(SolutionDir)msbuild\$(Configuration)\$(Platform)\$(ProjectName)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">
@@ -184,6 +186,9 @@
       <ModuleDefinitionFile>WeaselTSF.def</ModuleDefinitionFile>
       <AdditionalDependencies>Usp10.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>move /Y "$(OutDir)weasel$(TargetExt)" "$(OutDir)WeaselTSF$(TargetExt)"</Command>
+    </PostBuildEvent>
     <ResourceCompile>
       <AdditionalIncludeDirectories>$(SolutionDir)\include</AdditionalIncludeDirectories>
     </ResourceCompile>
@@ -213,6 +218,9 @@
       <ModuleDefinitionFile>WeaselTSF.def</ModuleDefinitionFile>
       <AdditionalDependencies>Usp10.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>move /Y "$(OutDir)weasel$(Platform)$(TargetExt)" "$(OutDir)WeaselTSF_$(Platform)$(TargetExt)"</Command>
+    </PostBuildEvent>
     <ResourceCompile>
       <AdditionalIncludeDirectories>$(SolutionDir)\include</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>ARM64;_UNICODE;UNICODE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -244,6 +252,9 @@
       <ModuleDefinitionFile>WeaselTSF.def</ModuleDefinitionFile>
       <AdditionalDependencies>Usp10.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>move /Y "$(OutDir)weasel$(TargetExt)" "$(OutDir)WeaselTSF$(TargetExt)"</Command>
+    </PostBuildEvent>
     <ResourceCompile>
       <AdditionalIncludeDirectories>$(SolutionDir)\include</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_UNICODE;UNICODE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -277,6 +288,9 @@
       <ModuleDefinitionFile>WeaselTSF.def</ModuleDefinitionFile>
       <AdditionalDependencies>Usp10.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>move /Y "$(OutDir)weasel$(Platform)$(TargetExt)" "$(OutDir)WeaselTSF_$(Platform)$(TargetExt)"</Command>
+    </PostBuildEvent>
     <ResourceCompile>
       <AdditionalIncludeDirectories>$(SolutionDir)\include</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>ARM64;_UNICODE;UNICODE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -303,7 +317,7 @@
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
-      <OutputFile>$(SolutionDir)output\weasel$(Platform)$(TargetExt)</OutputFile>
+      <OutputFile>$(SolutionDir)output\WeaselTSF_$(Platform)$(TargetExt)</OutputFile>
       <AdditionalLibraryDirectories>$(SolutionDir)\lib;$(BOOST_ROOT)\stage\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
@@ -312,6 +326,9 @@
       <ProgramDatabaseFile>$(OutDir)weaselx64.pdb</ProgramDatabaseFile>
       <AdditionalDependencies>Usp10.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>move /Y "$(OutDir)weasel$(Platform)$(TargetExt)" "$(OutDir)WeaselTSF_$(Platform)$(TargetExt)"</Command>
+    </PostBuildEvent>
     <ResourceCompile>
       <AdditionalIncludeDirectories>$(SolutionDir)\include</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN64;_UNICODE;UNICODE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -341,7 +358,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <ModuleDefinitionFile>WeaselTSF.def</ModuleDefinitionFile>
-      <ProgramDatabaseFile>$(OutDir)weaselx64.pdb</ProgramDatabaseFile>
+
       <AdditionalDependencies>Usp10.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <ResourceCompile>
@@ -371,7 +388,7 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
-      <OutputFile>$(SolutionDir)output\weasel$(Platform)$(TargetExt)</OutputFile>
+      <OutputFile>$(SolutionDir)output\WeaselTSF_$(Platform)$(TargetExt)</OutputFile>
       <AdditionalLibraryDirectories>$(SolutionDir)\lib;$(BOOST_ROOT)\stage\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
@@ -381,6 +398,9 @@
       <ModuleDefinitionFile>WeaselTSF.def</ModuleDefinitionFile>
       <AdditionalDependencies>Usp10.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>move /Y "$(OutDir)weasel$(Platform)$(TargetExt)" "$(OutDir)WeaselTSF_$(Platform)$(TargetExt)"</Command>
+    </PostBuildEvent>
     <ResourceCompile>
       <AdditionalIncludeDirectories>$(SolutionDir)\include</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN64;_UNICODE;UNICODE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -415,6 +435,9 @@
       <ModuleDefinitionFile>WeaselTSF.def</ModuleDefinitionFile>
       <AdditionalDependencies>Usp10.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>move /Y "$(OutDir)weasel$(Platform)$(TargetExt)" "$(OutDir)WeaselTSF_$(Platform)$(TargetExt)"</Command>
+    </PostBuildEvent>
     <ResourceCompile>
       <AdditionalIncludeDirectories>$(SolutionDir)\include</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>ARM;_UNICODE;UNICODE;%(PreprocessorDefinitions)</PreprocessorDefinitions>

@@ -52,6 +52,7 @@
     <CharacterSet>Unicode</CharacterSet>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <PlatformToolset>$(PLATFORM_TOOLSET)</PlatformToolset>
+    <UseArm64EC>true</UseArm64EC>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
@@ -62,6 +63,7 @@
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <CharacterSet>Unicode</CharacterSet>
     <PlatformToolset>$(PLATFORM_TOOLSET)</PlatformToolset>
+    <UseArm64EC>true</UseArm64EC>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
@@ -115,56 +117,56 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <TargetName>weasel</TargetName>
+    <TargetName>WeaselIME</TargetName>
     <TargetExt>.ime</TargetExt>
     <OutDir>$(SolutionDir)output\</OutDir>
     <IntDir>$(SolutionDir)msbuild\$(Configuration)\$(Platform)\$(ProjectName)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">
     <LinkIncremental>true</LinkIncremental>
-    <TargetName>weasel$(Platform)</TargetName>
+    <TargetName>WeaselIME_$(Platform)</TargetName>
     <TargetExt>.ime</TargetExt>
     <OutDir>$(SolutionDir)output\</OutDir>
     <IntDir>$(SolutionDir)msbuild\$(Configuration)\$(Platform)\$(ProjectName)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <TargetName>weasel</TargetName>
+    <TargetName>WeaselIME</TargetName>
     <TargetExt>.ime</TargetExt>
     <OutDir>$(SolutionDir)output\</OutDir>
     <IntDir>$(SolutionDir)msbuild\$(Configuration)\$(Platform)\$(ProjectName)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">
     <LinkIncremental>false</LinkIncremental>
-    <TargetName>weasel$(Platform)</TargetName>
+    <TargetName>WeaselIME_$(Platform)</TargetName>
     <TargetExt>.ime</TargetExt>
     <OutDir>$(SolutionDir)output\</OutDir>
     <IntDir>$(SolutionDir)msbuild\$(Configuration)\$(Platform)\$(ProjectName)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <TargetName>weasel$(Platform)</TargetName>
+    <TargetName>WeaselIME_$(Platform)</TargetName>
     <TargetExt>.ime</TargetExt>
     <OutDir>$(SolutionDir)output\</OutDir>
     <IntDir>$(SolutionDir)msbuild\$(Configuration)\$(Platform)\$(ProjectName)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
     <LinkIncremental>true</LinkIncremental>
-    <TargetName>weasel$(Platform)</TargetName>
+    <TargetName>WeaselIME_$(Platform)</TargetName>
     <TargetExt>.ime</TargetExt>
     <OutDir>$(SolutionDir)output\</OutDir>
     <IntDir>$(SolutionDir)msbuild\$(Configuration)\$(Platform)\$(ProjectName)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <TargetName>weasel$(Platform)</TargetName>
+    <TargetName>WeaselIME_$(Platform)</TargetName>
     <TargetExt>.ime</TargetExt>
     <OutDir>$(SolutionDir)output\</OutDir>
     <IntDir>$(SolutionDir)msbuild\$(Configuration)\$(Platform)\$(ProjectName)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
     <LinkIncremental>false</LinkIncremental>
-    <TargetName>weasel$(Platform)</TargetName>
+    <TargetName>WeaselIME_$(Platform)</TargetName>
     <TargetExt>.ime</TargetExt>
     <OutDir>$(SolutionDir)output\</OutDir>
     <IntDir>$(SolutionDir)msbuild\$(Configuration)\$(Platform)\$(ProjectName)\</IntDir>
@@ -198,6 +200,9 @@
     <Manifest>
       <EnableDpiAwareness>PerMonitorHighDPIAware</EnableDpiAwareness>
     </Manifest>
+    <PostBuildEvent>
+      <Command>move /Y "$(OutDir)weasel$(TargetExt)" "$(OutDir)WeaselIME$(TargetExt)"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">
     <ClCompile>
@@ -215,7 +220,7 @@
     </ClCompile>
     <Link>
       <AdditionalDependencies>imm32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <OutputFile>$(SolutionDir)output\weasel$(Platform)$(TargetExt)</OutputFile>
+      
       <AdditionalLibraryDirectories>$(SolutionDir)\lib;$(BOOST_ROOT)\stage\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <ModuleDefinitionFile>weasel.def</ModuleDefinitionFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -224,6 +229,9 @@
     <ResourceCompile>
       <AdditionalIncludeDirectories>$(SolutionDir)\include</AdditionalIncludeDirectories>
     </ResourceCompile>
+    <PostBuildEvent>
+      <Command>move /Y "$(OutDir)weasel$(Platform)$(TargetExt)" "$(OutDir)WeaselIME_$(Platform)$(TargetExt)"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -251,8 +259,7 @@
       <TargetMachine>MachineX86</TargetMachine>
     </Link>
     <PostBuildEvent>
-      <Command>
-      </Command>
+      <Command>move /Y "$(OutDir)weasel$(TargetExt)" "$(OutDir)WeaselIME$(TargetExt)"</Command>
     </PostBuildEvent>
     <ResourceCompile>
       <AdditionalIncludeDirectories>$(SolutionDir)\include</AdditionalIncludeDirectories>
@@ -277,7 +284,7 @@
     </ClCompile>
     <Link>
       <AdditionalDependencies>imm32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <OutputFile>$(SolutionDir)output\weasel$(Platform)$(TargetExt)</OutputFile>
+      
       <AdditionalLibraryDirectories>$(SolutionDir)\lib;$(BOOST_ROOT)\stage\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <ModuleDefinitionFile>weasel.def</ModuleDefinitionFile>
       <GenerateDebugInformation>false</GenerateDebugInformation>
@@ -286,8 +293,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
     </Link>
     <PostBuildEvent>
-      <Command>
-      </Command>
+      <Command>move /Y "$(OutDir)weasel$(Platform)$(TargetExt)" "$(OutDir)WeaselIME_$(Platform)$(TargetExt)"</Command>
     </PostBuildEvent>
     <ResourceCompile>
       <AdditionalIncludeDirectories>$(SolutionDir)\include</AdditionalIncludeDirectories>
@@ -315,7 +321,7 @@
     </ClCompile>
     <Link>
       <AdditionalDependencies>imm32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <OutputFile>$(SolutionDir)output\weasel$(Platform)$(TargetExt)</OutputFile>
+      
       <AdditionalLibraryDirectories>$(SolutionDir)\lib;$(BOOST_ROOT)\stage\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <ModuleDefinitionFile>weasel.def</ModuleDefinitionFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -328,6 +334,9 @@
     <Manifest>
       <EnableDpiAwareness>PerMonitorHighDPIAware</EnableDpiAwareness>
     </Manifest>
+    <PostBuildEvent>
+      <Command>move /Y "$(OutDir)weasel$(Platform)$(TargetExt)" "$(OutDir)WeaselIME_$(Platform)$(TargetExt)"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
     <Midl />
@@ -346,7 +355,7 @@
     </ClCompile>
     <Link>
       <AdditionalDependencies>imm32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <OutputFile>$(SolutionDir)output\weasel$(Platform)$(TargetExt)</OutputFile>
+      
       <AdditionalLibraryDirectories>$(SolutionDir)\lib;$(BOOST_ROOT)\stage\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <ModuleDefinitionFile>weasel.def</ModuleDefinitionFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -358,6 +367,9 @@
     <Manifest>
       <EnableDpiAwareness>PerMonitorHighDPIAware</EnableDpiAwareness>
     </Manifest>
+    <PostBuildEvent>
+      <Command>move /Y "$(OutDir)weasel$(Platform)$(TargetExt)" "$(OutDir)WeaselIME_$(Platform)$(TargetExt)"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Midl>
@@ -378,7 +390,7 @@
     </ClCompile>
     <Link>
       <AdditionalDependencies>imm32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <OutputFile>$(SolutionDir)output\weasel$(Platform)$(TargetExt)</OutputFile>
+      
       <AdditionalLibraryDirectories>$(SolutionDir)\lib;$(BOOST_ROOT)\stage\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <ModuleDefinitionFile>weasel.def</ModuleDefinitionFile>
       <GenerateDebugInformation>false</GenerateDebugInformation>
@@ -388,8 +400,7 @@
       <TargetMachine>MachineX64</TargetMachine>
     </Link>
     <PostBuildEvent>
-      <Command>
-      </Command>
+      <Command>move /Y "$(OutDir)weasel$(Platform)$(TargetExt)" "$(OutDir)WeaselIME_$(Platform)$(TargetExt)"</Command>
     </PostBuildEvent>
     <ResourceCompile>
       <AdditionalIncludeDirectories>$(SolutionDir)\include</AdditionalIncludeDirectories>
@@ -415,7 +426,7 @@
     </ClCompile>
     <Link>
       <AdditionalDependencies>imm32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <OutputFile>$(SolutionDir)output\weasel$(Platform)$(TargetExt)</OutputFile>
+      
       <AdditionalLibraryDirectories>$(SolutionDir)\lib;$(BOOST_ROOT)\stage\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <ModuleDefinitionFile>weasel.def</ModuleDefinitionFile>
       <GenerateDebugInformation>false</GenerateDebugInformation>
@@ -424,8 +435,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
     </Link>
     <PostBuildEvent>
-      <Command>
-      </Command>
+      <Command>move /Y "$(OutDir)weasel$(Platform)$(TargetExt)" "$(OutDir)WeaselIME_$(Platform)$(TargetExt)"</Command>
     </PostBuildEvent>
     <ResourceCompile>
       <AdditionalIncludeDirectories>$(SolutionDir)\include</AdditionalIncludeDirectories>

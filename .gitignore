@@ -31,8 +31,6 @@ compile_commands.json
 /include/glog
 /include/rime*.h
 /ipch
-env.bat
-weasel.props
 *.log
 *.user
 *.suo

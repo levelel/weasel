@@ -46,7 +46,7 @@ echo WEASEL_BUNDLED_RECIPES=%WEASEL_BUNDLED_RECIPES%
 echo.
 
 if defined GITHUB_ENV (
-	setlocal enabledelayedexpansion
+	setlocal enabledelayed!expansion!
 	echo git_ref_name=%PRODUCT_VERSION%>>!GITHUB_ENV!
 )
 
@@ -221,15 +221,14 @@ if %build_arm64% == 1 (
   if errorlevel 1 goto error
 )
 
-rem if %build_installer% == 1 (
-rem   copy "C:\Code\outwit\outwit-windows\output\install.nsi" "output\install.nsi"
-rem   "%ProgramFiles(x86)%"\NSIS\Bin\makensis.exe ^
-rem   /DWEASEL_VERSION=%WEASEL_VERSION% ^
-rem   /DWEASEL_BUILD=%WEASEL_BUILD% ^
-rem   /DPRODUCT_VERSION=%PRODUCT_VERSION% ^
-rem   output\install.nsi
-rem   if errorlevel 1 goto error
-rem )
+if %build_installer% == 1 (
+  "%ProgramFiles(x86)%\NSIS\Bin\makensis.exe" ^
+  /DWEASEL_VERSION=%WEASEL_VERSION% ^
+  /DWEASEL_BUILD=%WEASEL_BUILD% ^
+  /DPRODUCT_VERSION=%PRODUCT_VERSION% ^
+  output\install.nsi
+  if errorlevel 1 goto error
+)
 
 goto end
 

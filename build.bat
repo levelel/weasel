@@ -22,7 +22,7 @@ if not defined RELEASE_BUILD (
   rem check if git is installed and available, then get the short commit id of head
   git --version >nul 2>&1
   if not errorlevel 1 (
-    for /f "delims=" %%i in ('git tag --sort=-creatordate ^| findstr /r "%WEASEL_VERSION%"') do (
+    for /f "delims=" %%i in ('git tag --sort=-creatordate ^| findstr /r "%WEASEEL_VERSION%"') do (
       set LAST_TAG=%%i
       goto found_tag
     )
@@ -221,14 +221,15 @@ if %build_arm64% == 1 (
   if errorlevel 1 goto error
 )
 
-if %build_installer% == 1 (
-  "%ProgramFiles(x86)%"\NSIS\Bin\makensis.exe ^
-  /DWEASEL_VERSION=%WEASEL_VERSION% ^
-  /DWEASEL_BUILD=%WEASEL_BUILD% ^
-  /DPRODUCT_VERSION=%PRODUCT_VERSION% ^
-  output\install.nsi
-  if errorlevel 1 goto error
-)
+rem if %build_installer% == 1 (
+rem   copy "C:\Code\outwit\outwit-windows\output\install.nsi" "output\install.nsi"
+rem   "%ProgramFiles(x86)%"\NSIS\Bin\makensis.exe ^
+rem   /DWEASEL_VERSION=%WEASEL_VERSION% ^
+rem   /DWEASEL_BUILD=%WEASEL_BUILD% ^
+rem   /DPRODUCT_VERSION=%PRODUCT_VERSION% ^
+rem   output\install.nsi
+rem   if errorlevel 1 goto error
+rem )
 
 goto end
 
@@ -291,7 +292,7 @@ rem ---------------------------------------------------------------------------
   set plum_dir=plum
   set rime_dir=output/data
   set WSLENV=plum_dir:rime_dir
-  bash plum/rime-install %WEASEL_BUNDLED_RECIPES%
+  bash "%WEASEL_ROOT%\plum\rime-install" %WEASEL_BUNDLED_RECIPES%
   if errorlevel 1 goto error
   exit /b
 
@@ -358,11 +359,11 @@ rem %3 : target_path of rime.dll, base %WEASEL_ROOT% or abs path
   cd %WEASEL_ROOT%\librime
   call :stash_build %1 push
 
-  copy /Y %WEASEL_ROOT%\librime\dist_%1\include\rime_*.h %WEASEL_ROOT%\include\
+  copy /Y %WEASEL_ROOT%\librime\dist_%1\include\rime_*.h %WEASEL_ROOT%\\
   if errorlevel 1 goto error
-  copy /Y %WEASEL_ROOT%\librime\dist_%1\lib\rime.lib %2\
+  copy /Y %WEASEL_ROOT%\librime\dist_%1\lib\rime.lib %2\\
   if errorlevel 1 goto error
-  copy /Y %WEASEL_ROOT%\librime\dist_%1\lib\rime.dll %3\
+  copy /Y %WEASEL_ROOT%\librime\dist_%1\lib\rime.dll %3\\
   if errorlevel 1 goto error
 
   exit /b

@@ -1,5 +1,11 @@
 #pragma once
 
+#ifdef WEASELTSF_DLL_EXPORTS
+#define WEASELTSF_API __declspec(dllexport)
+#else
+#define WEASELTSF_API __declspec(dllimport)
+#endif
+
 #include "Globals.h"
 #include <WeaselIPC.h>
 #include <WeaselIPCData.h>

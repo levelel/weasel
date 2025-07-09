@@ -1,4 +1,11 @@
 #pragma once
+
+#ifdef WEASELIME_EXPORTS
+#define WEASELIME_API __declspec(dllexport)
+#else
+#define WEASELIME_API __declspec(dllimport)
+#endif
+
 #include <WeaselIPC.h>
 #include <KeyEvent.h>
 
@@ -41,6 +48,45 @@ class WeaselIME {
   static BOOL IsIMEMessage(UINT uMsg);
   static std::shared_ptr<WeaselIME> GetInstance(HIMC hIMC);
   static void Cleanup();
+
+  WEASELIME_API BOOL WINAPI ImeInquire(IMEINFO* lpIMEInfo,
+                       LPWSTR lpszUIClass,
+                       DWORD dwSystemInfoFlags);
+  WEASELIME_API BOOL WINAPI ImeConfigure(HKL hKL, HWND hWnd, DWORD dwMode, LPVOID lpData);
+  WEASELIME_API DWORD WINAPI ImeConversionList(HIMC hIMC,
+                               LPCTSTR lpSource,
+                               LPCANDIDATELIST lpCandList,
+                               DWORD dwBufLen,
+                               UINT uFlag);
+  WEASELIME_API BOOL WINAPI ImeDestroy(UINT uForce);
+  WEASELIME_API LRESULT WINAPI ImeEscape(HIMC hIMC, UINT uSubFunc, LPVOID lpData);
+  WEASELIME_API BOOL WINAPI ImeProcessKey(HIMC hIMC,
+                          UINT vKey,
+                          LPARAM lKeyData,
+                          const LPBYTE lpbKeyState);
+  WEASELIME_API BOOL WINAPI ImeSelect(HIMC hIMC, BOOL fSelect);
+  WEASELIME_API BOOL WINAPI ImeSetActiveContext(HIMC hIMC, BOOL fFocus);
+  WEASELIME_API UINT WINAPI ImeToAsciiEx(UINT uVKey,
+                         UINT uScanCode,
+                         CONST LPBYTE lpbKeyState,
+                         LPDWORD lpdwTransKey,
+                         UINT fuState,
+                         HIMC hIMC);
+  WEASELIME_API BOOL WINAPI NotifyIME(HIMC hIMC, DWORD dwAction, DWORD dwIndex, DWORD dwValue);
+  WEASELIME_API BOOL WINAPI ImeRegisterWord(LPCTSTR lpRead, DWORD dw, LPCTSTR lpStr);
+  WEASELIME_API BOOL WINAPI ImeUnregisterWord(LPCTSTR lpRead, DWORD dw, LPCTSTR lpStr);
+  WEASELIME_API UINT WINAPI ImeGetRegisterWordStyle(UINT nItem, LPSTYLEBUF lp);
+  WEASELIME_API UINT WINAPI ImeEnumRegisterWord(REGISTERWORDENUMPROC lpfn,
+                                LPCTSTR lpRead,
+                                DWORD dw,
+                                LPCTSTR lpStr,
+                                LPVOID lpData);
+  WEASELIME_API BOOL WINAPI ImeSetCompositionString(HIMC hIMC,
+                                    DWORD dwIndex,
+                                    LPCVOID lpComp,
+                                    DWORD dwComp,
+                                    LPCVOID lpRead,
+                                    DWORD dwRead);
 
   WeaselIME(HIMC hIMC);
   LRESULT OnIMESelect(BOOL fSelect);

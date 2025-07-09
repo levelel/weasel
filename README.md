@@ -1,4 +1,45 @@
-﻿【小狼毫】輸入法
+﻿# FORK 说明
+## 本 FORK 改动
+  - 为 VS 2022 重构编码。使其能在 VS 2022 打开。
+  - 添加 env.bat 为 VS 2022 版开发环境编写。
+  - 去掉已被淘汰的 ARM32 平台的构建。保留 X86/64, ARM64 平台的构建。
+## 构建方式
+  - 阅读 @INSTALL.md 
+  - 环境搭建 @install_boost.bat @install_nsis.bat @env.bat
+  - 可跳过 librime 编译 @get_rime.ps1 
+  - 编译入口1：脚本 @build.bat 可选参数 
+    | 参数 | 作用说明 |
+    |--------------|------------------------------------------------------|
+    | all | 一键编译所有模块（boost、data、opencc、rime、weasel、installer、arm64）|
+    | boost | 只编译 Boost 依赖库 |
+    | data | 只编译数据文件（如码表等） |
+    | opencc | 只编译 OpenCC 依赖库 |
+    | rime/librime | 只编译 Rime 主体库 |
+    | weasel | 只编译 Weasel 主程序 |
+    | installer | 生成安装包 |
+    | arm64 | 编译 ARM64 相关内容 |
+    | debug | 用 Debug 配置编译（默认是 Release） |
+    | release | 用 Release 配置编译 |
+    | rebuild | 先清理再重新编译 |
+  - 编译入口2 @xbuild.bat。必须在 Developer Command Prompt for VS 2022 中运行。
+    | 参数 | 作用说明 |
+    |--------------|------------------------------------------------------|
+    | all | 一键编译所有模块（boost、data、opencc、rime、weasel、installer、arm64、commands）|
+    | boost | 只编译 Boost 依赖库 |
+    | data | 只编译数据文件（如码表等） |
+    | opencc | 只编译 OpenCC 依赖库 |
+    | rime/librime | 只编译 Rime 主体库 |
+    | weasel | 只编译 Weasel 主程序 |
+    | installer | 生成安装包 |
+    | arm64 | 编译 ARM64 相关内容 |
+    | commands | 生成 compile_commands.json（代码分析用） |
+    | clean | 清理构建产物 |
+    | rebuild | 先清理再重新编译 |
+    | debug | 用 debug 配置编译（默认是 release） |
+    | release | 用 release 配置编译 |
+
+
+# 【小狼毫】輸入法
 ================
 
 基於 中州韻輸入法引擎／Rime Input Method Engine 等開源技術
